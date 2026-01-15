@@ -23,8 +23,17 @@ class AuthController extends AppController
             );
         }
 
+        debug($result);
         if ($this->request->is('post')) {
-            $this->Flash->error('Invalid username or password');
+            $errors = $result->getErrors();
+
+            if (! empty($errors)) {
+                foreach ($errors as $error) {
+                    $this->Flash->error($error);
+                }
+            } else {
+                $this->Flash->error('Login failed. Please try again.');
+            }
         }
     }
 

@@ -1,19 +1,15 @@
 <?php
-
 namespace App\Authentication\Authenticator;
 
 use Authentication\Authenticator\AbstractAuthenticator;
 use Authentication\Authenticator\Result;
-use Cake\ORM\TableRegistry;
-use DateTime;
-use GuzzleHttp\Client;
 use Psr\Http\Message\ServerRequestInterface;
 
 class SsoAuthenticator extends AbstractAuthenticator
 {
     public function authenticate(ServerRequestInterface $request): Result
     {
-        $url = 'https://sso.awan.info/api/login-external';
+        /* $url = 'https://sso.awan.info/api/login-external';
 
         $data = $request->getParsedBody();
 
@@ -21,21 +17,22 @@ class SsoAuthenticator extends AbstractAuthenticator
             return new Result(null, Result::FAILURE_CREDENTIALS_MISSING, ['Credentials are required']);
         }
 
-        $client = new Client(['verify' => false]);
+        $client   = new Client(['verify' => false]);
         $response = $client->request('POST', $url, [
             'form_params' => [
                 'platform' => 'web',
-                'email' => $data['email'],
+                'email'    => $data['email'],
                 'password' => $data['password'],
-            ]
+            ],
         ]);
 
         $statusCode = $response->getStatusCode();
-        $content = $response->getBody()->getContents();
+        $content    = $response->getBody()->getContents();
         $resultData = json_decode(($content), false);
-        $status = $resultData->status;
+        $status     = $resultData->status; */
 
-        if ($statusCode == 200 && $status != 'failed') {
+        return new Result(null, Result::FAILURE_CREDENTIALS_INVALID, ['Invalid credentials']);
+        /*  if ($statusCode == 200 && $status != 'failed') {
             $ssoUser = TableRegistry::getTableLocator()
                 ->get('SsoUsers', ['connectionName' => 'ssodb'])
                 ->find()
@@ -94,6 +91,6 @@ class SsoAuthenticator extends AbstractAuthenticator
             }
         } else {
             return new Result(null, Result::FAILURE_CREDENTIALS_INVALID, ['Invalid credentials']);
-        }
+        } */
     }
 }
