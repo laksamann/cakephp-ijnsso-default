@@ -3,7 +3,7 @@ declare (strict_types = 1);
 
 namespace App\Controller;
 
-use Cake\Controller\Controller;
+use Authentication\Authenticator\Result;
 
 class AuthController extends AppController
 {
@@ -15,24 +15,18 @@ class AuthController extends AppController
 
     public function login()
     {
-        $result = $this->Authentication->getResult();
-
-        if ($result->isValid()) {
-            return $this->redirect(
-                $this->Authentication->getLoginRedirect() ?? '/'
-            );
-        }
-
-        debug($result);
+        $this->viewBuilder()->setLayout('auth');
         if ($this->request->is('post')) {
-            $errors = $result->getErrors();
+            $result = $this->Authentication->getResult();
 
-            if (! empty($errors)) {
-                foreach ($errors as $error) {
-                    $this->Flash->error($error);
-                }
+            if ($result->isValid()) {
+                return $this->redirect(
+                    $this->Authentication->getLoginRedirect() ?? '/dashboard'
+                );
             } else {
-                $this->Flash->error('Login failed. Please try again.');
+                $this->Flash->error(
+                    $result->getErrors()[0] ?? 'Authentication failed. Please try again.'
+                );
             }
         }
     }

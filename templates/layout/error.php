@@ -1,5 +1,5 @@
 <?php
-/**
+    /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
@@ -17,23 +17,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= $this->Html->charset() ?>
+    <?php echo $this->Html->charset() ?>
     <title>
-        <?= $this->fetch('title') ?>
+        <?php echo $this->fetch('title') ?>
     </title>
-    <?= $this->Html->meta('icon') ?>
+    <?php echo $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake']) ?>
+    <?php echo $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake']) ?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <?php echo $this->fetch('meta') ?>
+    <?php echo $this->fetch('css') ?>
+    <?php echo $this->fetch('script') ?>
+    <?php echo $this->Html->css('bootstrap/bootstrap.min') ?>
+    <?php echo $this->Html->script('bootstrap/bootstrap.bundle.min') ?>
 </head>
 <body>
     <div class="error-container">
-        <?= $this->Flash->render() ?>
-        <?= $this->fetch('content') ?>
-        <?= $this->Html->link(__('Back'), 'javascript:history.back()') ?>
+        <?php echo $this->Flash->render() ?>
+        <?php echo $this->fetch('content') ?>
+        <?php echo $this->Html->link(__('Back'), 'javascript:history.back()') ?>
     </div>
 </body>
 </html>
