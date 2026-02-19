@@ -29,6 +29,8 @@
     <?php echo $this->fetch('css') ?>
     <?php echo $this->fetch('script') ?>
     <?php echo $this->Html->css('bootstrap/bootstrap.min') ?>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
     <?php echo $this->Html->script('bootstrap/bootstrap.bundle.min') ?>
 </head>
 <body>

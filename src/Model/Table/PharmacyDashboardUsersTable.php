@@ -8,13 +8,13 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class CrrcDashboardUsersTable extends Table
+class PharmacyDashboardUsersTable extends Table
 {
     public function initialize(array $config): void
     {
         parent::initialize($config);
 
-        $this->setTable('crrc_dashboard_users');
+        $this->setTable('pharmacy_dashboard_users');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
@@ -24,7 +24,7 @@ class CrrcDashboardUsersTable extends Table
         ]);
         $this->belongsTo('RoleSsos', [
             'foreignKey' => 'role_sso_id',
-            'className' => 'RoleIjnCrrc',
+            'className' => 'RoleIjnPharmacy',
         ]);
         $this->belongsTo('StatusSsos', [
             'foreignKey' => 'status_sso_id',

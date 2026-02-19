@@ -15,6 +15,8 @@
     '../DataTables/datatables',
     '../SummerNote/summernote',
     ]) ?>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
 
     <!-- Scripts -->
     <?php echo $this->Html->script([
@@ -59,7 +61,7 @@
             <!-- System Name -->
             <div class="d-flex flex-column">
                 <span class="fw-bold fs-6 fs-lg-5 text-gray-900">
-                    Cardiovascular Risk Reduction Clinic
+                    Pharmacy MHD
                 </span>
                 <span class="fs-8 text-muted">
                     Management Dashboard

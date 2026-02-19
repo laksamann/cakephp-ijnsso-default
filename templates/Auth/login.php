@@ -23,6 +23,8 @@
                         'id'    => 'kt_sign_in_form',
                 ]) ?>
 
+                <?php echo $this->Flash->render() ?>
+                
                 <div class="text-center mb-11">
                     <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
                     <div class="text-gray-500 fw-semibold fs-6">

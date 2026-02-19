@@ -8,20 +8,20 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class AccessRoleIjnCrrcTable extends Table
+class AccessRoleIjnPharmacyTable extends Table
 {
     public function initialize(array $config): void
     {
         parent::initialize($config);
 
-        $this->setTable('accessrole_ijncarecrrc');
+        $this->setTable('accessrole_ijncarepharmacy');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('SsoUsers', [
             'foreignKey' => 'user_id',
         ]);
-        $this->belongsTo('AccessRoleIjnCrrc', [
+        $this->belongsTo('RoleIjnPharmacy', [
             'foreignKey' => 'role_id',
         ]);
         $this->belongsTo('SsoStatuses', [

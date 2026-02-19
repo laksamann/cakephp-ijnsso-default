@@ -7,6 +7,8 @@
     <title>Login</title>
 
     <?php echo $this->Html->css(['default/style.bundle', 'default/plugins.bundle']) ?>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
     <?php echo $this->Html->script(['jquery', 'default/scripts.bundle', 'default/plugins.bundle']) ?>
 
 </head>

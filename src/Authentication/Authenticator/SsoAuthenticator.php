@@ -45,7 +45,7 @@ class SsoAuthenticator extends AbstractAuthenticator
                 ->first();
 
             if ($ssoUser) {
-                $usersTable = TableRegistry::getTableLocator()->get('CrrcDashboardUsers');
+                $usersTable = TableRegistry::getTableLocator()->get('PharmacyDashboardUsers');
                 $user       = $usersTable->find()->where([
                     'user_sso_id' => $ssoUser->id,
                     'inactive'    => 0,
@@ -62,7 +62,7 @@ class SsoAuthenticator extends AbstractAuthenticator
                 }
 
                 $accessRoleTable = TableRegistry::getTableLocator()
-                    ->get('AccessRoleIjnCrrc', ['connectionName' => 'ssodb']);
+                    ->get('AccessRoleIjnPharmacy', ['connectionName' => 'ssodb']);
                 $accessRoleData = $accessRoleTable->find()->where([
                     'user_id'   => $ssoUser->id,
                     'status_id' => 2,

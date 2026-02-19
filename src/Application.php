@@ -61,10 +61,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             'queryParam'              => 'redirect',
         ]);
 
-
         $service->loadAuthenticator('Authentication.Session');
+
         $service->loadAuthenticator('App\Authentication\Authenticator\SsoAuthenticator', [
             'loginUrl' => '/login',
+        ]);
+
+        $service->loadAuthenticator('App\Authentication\Authenticator\TrakcareAuthenticator', [
+            'loginUrl' => '/trakcare-login',
         ]);
 
         return $service;

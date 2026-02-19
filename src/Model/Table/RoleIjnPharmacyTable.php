@@ -8,13 +8,13 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class RoleIjnCrrcTable extends Table
+class RoleIjnPharmacyTable extends Table
 {
     public function initialize(array $config): void
     {
         parent::initialize($config);
 
-        $this->setTable('role_ijncarecrrc');
+        $this->setTable('role_ijncarepharmacy');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
