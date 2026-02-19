@@ -68,7 +68,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         ]);
 
         $service->loadAuthenticator('App\Authentication\Authenticator\TrakcareAuthenticator', [
-            'loginUrl' => '/trakcare-login',
+            'loginUrl' => '/login',
         ]);
 
         return $service;

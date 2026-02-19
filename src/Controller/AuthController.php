@@ -3,8 +3,6 @@ declare (strict_types = 1);
 
 namespace App\Controller;
 
-use Authentication\Authenticator\Result;
-
 class AuthController extends AppController
 {
     public function beforeFilter(\Cake\Event\EventInterface $event)
@@ -17,16 +15,33 @@ class AuthController extends AppController
     {
         $this->viewBuilder()->setLayout('auth');
 
-        $result = $this->Authentication->getResult();
+        $query = $this->request->getQueryParams();
 
-        if ($this->request->is('post') && $result->isValid()) {
-            return $this->redirect(
-                $this->Authentication->getLoginRedirect() ?? '/dashboard'
-            );
+        $isTrakcareLogin =
+        ! empty($query['userid']) &&
+        ! empty($query['username']);
+
+        $isFormLogin = $this->request->is('post');
+
+        if (! $isTrakcareLogin && ! $isFormLogin) {
+            return;
         }
 
-        if ($this->request->is('post')) {
-            $this->Flash->error('Authentication failed');
+        $result = $this->Authentication->getResult();
+
+        if (! $this->request->is('post') && ! $this->request->getQuery('userid')) {
+            return;
+        }
+
+        if ($result->isValid()) {
+            $this->Flash->success('Login successful');
+            return $this->redirect('/dashboard');
+        }
+
+        if ($this->request->is('post') || $this->request->getQuery('userid')) {
+            $this->Flash->error(
+                $result->getErrors()[0] ?? 'Unable to verify login'
+            );
         }
     }
 
