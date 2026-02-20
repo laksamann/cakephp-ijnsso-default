@@ -4,7 +4,6 @@ namespace App\Authentication\Authenticator;
 use Authentication\Authenticator\AbstractAuthenticator;
 use Authentication\Authenticator\Result;
 use Cake\ORM\TableRegistry;
-use function Cake\Error\debug;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -56,22 +55,6 @@ class TrakcareAuthenticator extends AbstractAuthenticator
             ->first();
 
         if ($ssoUser) {
-            $usersTable = TableRegistry::getTableLocator()->get('PharmacyDashboardUsers');
-            $user       = $usersTable->find()->where([
-                'user_sso_id' => $ssoUser->id,
-                'inactive'    => 0,
-            ])->first();
-
-            if (! $user) {
-                $user                = $usersTable->newEmptyEntity();
-                $user->user_sso_id   = $ssoUser->id;
-                $user->status_sso_id = $ssoUser->status_id;
-            } else {
-                $user                = $usersTable->get($user->id);
-                $user->user_sso_id   = $ssoUser->id;
-                $user->status_sso_id = $ssoUser->status_id;
-            }
-
             $accessRoleTable = TableRegistry::getTableLocator()
                 ->get('AccessRoleIjnPharmacy', ['connectionName' => 'ssodb']);
             $accessRoleData = $accessRoleTable->find()->where([
@@ -81,6 +64,24 @@ class TrakcareAuthenticator extends AbstractAuthenticator
 
             if (! $accessRoleData) {
                 return new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND, ['User is not allowed to login.']);
+            }
+
+            $usersTable = TableRegistry::getTableLocator()->get('PharmacyDashboardUsers');
+            $user       = $usersTable->find()->where([
+                'user_sso_id' => $ssoUser->id,
+                'inactive'    => 0,
+            ])->first();
+
+            if (! $user) {
+                $user                = $usersTable->newEmptyEntity();
+                $user->role_sso_id   = $accessRoleData->role_id;
+                $user->user_sso_id   = $ssoUser->id;
+                $user->status_sso_id = $ssoUser->status_id;
+            } else {
+                $user                = $usersTable->get($user->id);
+                $user->role_sso_id   = $accessRoleData->role_id;
+                $user->user_sso_id   = $ssoUser->id;
+                $user->status_sso_id = $ssoUser->status_id;
             }
 
             $ssoUser->userData = $user;
